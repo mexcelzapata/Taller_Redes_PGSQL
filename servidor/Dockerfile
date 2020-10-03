@@ -29,12 +29,12 @@ RUN apt-get update && \
     apt-get install -y --force-yes runit
 
 # Add scripts
-ADD scripts /servidor/scripts
+ADD scripts /scripts
 RUN chmod +x /scripts/*.sh
 RUN touch /.firstrun
 
 # Command to run
-ENTRYPOINT ["/servidor/scripts/run.sh"]
+ENTRYPOINT ["/scripts/run.sh"]
 CMD [""]
 
 # Expose listen port
