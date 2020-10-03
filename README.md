@@ -1,6 +1,3 @@
 # Taller_Redes_PGSQL
 
-´´´
-HOLA 
-
-´´´
+### postgres Version
