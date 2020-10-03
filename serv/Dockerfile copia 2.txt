@@ -1,0 +1,37 @@
+FROM ubuntu
+MAINTAINER mexcel zapata "mexcel.zapata@mail.udp.cl"
+MAINTAINER nicolas corra "nicolas.correa2@mail.udp.cl"
+WORKDIR /taller (nuevo)
+
+ARG BEBIAN_FRONTED=noninteractive
+
+
+RUN apt-get -y update \
+&& apt-get -y upgrade \
+&& apt-get install -y build-essential \ 
+&& apt-get install -y make 
+
+RUN apt-get install nano \
+&& apt install -y gcc zlib1g-dev libreadline6-dev \
+&& apt-get -y install wget 
+
+#RUN cd /usr/local/src (comentado porque se instalara en taller)
+
+RUN wget https://ftp.postgresql.org/pub/source/v13.0/postgresql-13.0.tar.bz2 
+RUN tar -xvf postgresql-13.0.tar.bz2 
+RUN cd postgresql-13.0 
+
+RUN mkdir /opt/PostgreSQL-13/ 
+WORKDIR taller/postgresql-13.0/ (nuevo, le agregé el taller/) es como un cd
+RUN ./configure --prefix=/opt/PostgreSQL-13 
+RUN make
+RUN make install
+RUN useradd postgres
+RUN mkdir -p /pgdatabase/data
+RUN chown -R postgres. /pgdatabase/data
+RUN mkdir /usr/local/pgsql/data
+
+RUN adduser -r -U -M -d /postgresql-13.0/src/pl/plpgsql/src/data postgres
+EXPOSE 80/tcp
+CMD "postgres"
+#RUN ls #RUN pwd #/taller/postgresql-13.0/
